@@ -118,8 +118,8 @@
         <rectangleSize width="160"/>
       </shape>
       <shape expanded="true" modelObjectName="P_DIM" modelObjectNameSpace="CalculationView">
-        <upperLeftCorner x="176" y="261"/>
-        <rectangleSize height="-1" width="-1"/>
+        <upperLeftCorner x="394" y="324"/>
+        <rectangleSize height="-1" width="160"/>
       </shape>
       <shape expanded="true" modelObjectName="P_FACT" modelObjectNameSpace="CalculationView">
         <upperLeftCorner x="22" y="261"/>
