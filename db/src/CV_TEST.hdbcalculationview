@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="3.0" id="Test::CV_TEST" applyPrivilegeType="NONE" defaultClient="$$client$$" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation" xscCompatibilityMode="true">
+<origin/>
+  <descriptions defaultDescription="CV_TEST"/>
+  <metadata changedAt="2019-01-30 21:56:40.269"/>
+  <localVariables>
+    <variable id="IP_CLIENTE" parameter="true">
+      <descriptions defaultDescription="Cliente"/>
+      <variableProperties mandatory="false" datatype="INTEGER" length="10" scale="0">
+        <valueDomain type="AttributeValue">
+          <attribute name="ID_CUS"/>
+        </valueDomain>
+        <selection multiLine="false" type="Single"/>
+        <defaultRange/>
+      </variableProperties>
+    </variable>
+  </localVariables>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="38"/>
+  <dataSources>
+    <DataSource id="DIM">
+      <resourceUri>Test::DIM</resourceUri>
+    </DataSource>
+    <DataSource id="FACT">
+      <resourceUri>Test::FACT</resourceUri>
+    </DataSource>
+  </dataSources>
+  <calculationViews>
+    <calculationView xsi:type="Calculation:ProjectionView" id="P_DIM">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="ID"/>
+        <viewAttribute id="NOMBRE"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <restrictedViewAttributes/>
+      <input node="DIM">
+        <mapping xsi:type="Calculation:AttributeMapping" target="ID" source="ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NOMBRE" source="NOMBRE"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="P_FACT">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="TST"/>
+        <viewAttribute id="ID_CUS"/>
+        <viewAttribute id="KPI"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <restrictedViewAttributes/>
+      <input node="FACT">
+        <mapping xsi:type="Calculation:AttributeMapping" target="TST" source="TST"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ID_CUS" source="ID_CUS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="J_FD" cardinality="CN_1" joinType="referential">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="TST"/>
+        <viewAttribute id="ID_CUS"/>
+        <viewAttribute id="KPI"/>
+        <viewAttribute id="NOMBRE"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <restrictedViewAttributes/>
+      <input node="P_FACT">
+        <mapping xsi:type="Calculation:AttributeMapping" target="TST" source="TST"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ID_CUS" source="ID_CUS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="KPI" source="KPI"/>
+      </input>
+      <input node="P_DIM">
+        <mapping xsi:type="Calculation:AttributeMapping" target="NOMBRE" source="NOMBRE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ID_CUS" source="ID"/>
+      </input>
+      <joinAttribute name="ID_CUS"/>
+    </calculationView>
+  </calculationViews>
+  <logicalModel id="J_FD" filterExpressionLanguage="SQL">
+    <descriptions/>
+    <attributes>
+      <attribute id="TST" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Timestamp"/>
+        <keyMapping columnObjectName="J_FD" columnName="TST"/>
+      </attribute>
+      <attribute id="ID_CUS" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Customer ID"/>
+        <keyMapping columnObjectName="J_FD" columnName="ID_CUS"/>
+      </attribute>
+      <attribute id="NOMBRE" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Nombre del Cliente"/>
+        <keyMapping columnObjectName="J_FD" columnName="NOMBRE"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="KPI" order="3" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="KPI Sales"/>
+        <measureMapping columnObjectName="J_FD" columnName="KPI"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+    <filter>'$$IP_CLIENTE$$' = '' or  &quot;ID_CUS&quot; = '$$IP_CLIENTE$$'</filter>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="99" y="105"/>
+        <rectangleSize width="160"/>
+      </shape>
+      <shape expanded="true" modelObjectName="P_DIM" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="176" y="261"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="P_FACT" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="261"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="J_FD" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="99" y="165"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    
+      <shape modelObjectName="P_FACT" modelObjectNameSpace="J_FD" modelObjectType="JoinNodeInput">
+        <upperLeftCorner x="20" y="30"/>
+        <rectangleSize width="250"/>
+      </shape>
+      <shape modelObjectName="P_DIM" modelObjectNameSpace="J_FD" modelObjectType="JoinNodeInput">
+        <upperLeftCorner x="320" y="30"/>
+        <rectangleSize width="250"/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

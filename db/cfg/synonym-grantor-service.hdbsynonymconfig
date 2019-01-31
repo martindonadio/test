@@ -1,0 +1,14 @@
+{
+    "Test::DIM": {
+        "target": {
+            "schema": "SYSTEM",
+            "object": "DIM"
+        }
+    },
+    "Test::FACT": {
+        "target": {
+            "schema": "SYSTEM",
+            "object": "FACT"
+        }
+    }
+}

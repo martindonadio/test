@@ -1,0 +1,13 @@
+{
+    "role": {
+        "name": "Test::PublicAccessSchema",
+        "schema_privileges": [
+            {
+                "privileges": [
+                    "SELECT",
+                    "EXECUTE"
+                ]
+            }
+        ]
+    }
+}
